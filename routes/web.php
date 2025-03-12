@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::controller(slideController::class)->middleware(['auth','verified'])->group(function (){
+Route::controller(SliderController::class)->middleware(['auth','verified'])->group(function (){
     Route::get('/SliderIndex','Index')->name('slider.index');
 });
 
