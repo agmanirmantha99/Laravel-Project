@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SliderController;
+
+
 
 Route::get('/', function () {
     return view('frontend.home');
@@ -19,7 +22,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::controller(SliderController::class)->middleware(['auth','verified'])->group(function (){
-    Route::get('/SliderIndex','Index')->name('slider.index');
+    Route::get('/SliderIndex','index')->name('slider.index');
 });
 
 Route::get('/admin/dashboard', function () {
