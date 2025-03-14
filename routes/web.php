@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(SliderController::class)->middleware(['auth','verified'])->group(function (){
     Route::get('/SliderIndex','index')->name('slider.index');
+    Route::post('/saveSlider','storeslider')->name('slider.store');
 });
 
 Route::get('/admin/dashboard', function () {
