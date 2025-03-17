@@ -3,11 +3,14 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SliderController;
+use App\Models\Slider;
 
 
 
 Route::get('/', function () {
-    return view('frontend.home');
+
+    $sliders = Slider::all();
+    return view('frontend.home',compact('sliders'));
 });
 
 
