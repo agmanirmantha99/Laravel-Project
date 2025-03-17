@@ -9,7 +9,8 @@ class SliderController extends Controller
 {
     public function Index()
     {
-        return view('admin.home.slider');
+        $sliders = Slider::all();
+        return view('admin.home.slider',compact('sliders'));
     }
 
     public function storeslider(Request $request)
@@ -36,4 +37,39 @@ class SliderController extends Controller
 
         return redirect()->back()->with('success','Slide added succesfully !');
     }
+
+    public function updateslider(Request $request){
+        $validatedData = $request->validate([
+            'top_sub_heading'       => 'required|string',
+            'heading'               => 'required|string|max:255',
+            'bottom_sub_heading'    => 'required|string|max:255',
+            'more_info_link'        => 'nullable|url',
+        ]);
+
+        if($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('slides','public');
+        }
+
+        $update = Slider::find($request->slider_id);
+        $update->top_sub_heading = $validatedData['top_sub_heading'];
+        $update->heading = $validatedData['heading'];
+        $update->bottom_sub_heading = $validatedData['bottom_sub_heading'];
+
+        if($request->hasFile('image')){
+            $update->image_link = $imagePath;
+        }
+        $update->more_info_link = $validatedData['more_info_link'];
+        $update->save();
+
+        return redirect()->back()->with('success','Slide updated succesfully !');
+    }
+
+    public function deleteSlider($id){
+        $delete = Slider::find($id);
+        $delete->delete();
+
+        return redirect()->back()->with('success','Slide deleted succesfully !');
+
+    }
 }
+
