@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SliderController;
@@ -36,6 +37,13 @@ Route::get('/admin/dashboard', function () {
         dd('View not found!');
     }
     return view('admin.dashboard');
+});
+
+Route::controller(TestimonialController::class)->middleware(['auth','verified'])->group(function (){
+    Route::get('/TestimonialIndex','index')->name('Testimonial.index');
+    Route::post('/saveTestimonial','storeTestimonial')->name('Testimonial.store');
+    Route::post('/TestimonialUpdate','updateTestimonial')->name('Testimonial.update');
+    Route::get('/deleteTestimonial/{id}','deleteTestimonial')->name('Testimonial.delete');
 });
 
 
