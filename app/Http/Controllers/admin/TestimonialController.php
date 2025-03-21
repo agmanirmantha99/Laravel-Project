@@ -11,7 +11,7 @@ class TestimonialController extends Controller
 {
     public function Index(){
         $testimonials = Testimonial::all();
-        return view('admin.home.testimonial');
+        return view('admin.home.testimonial',compact('testimonials'));
     }
 
     public function storeTestimonial(Request $request){
@@ -37,4 +37,39 @@ class TestimonialController extends Controller
 
         return redirect()->back()->with('success','Testimonial added successfully');
     }
+
+    public function updateTestimonial(Request $request){
+
+        $request ->validate([
+            'tm_name'=> 'required',
+            'tm_profession'=> 'required',
+            'tm_description'=> 'required',
+            'tm_id'=> 'required',
+        ]);
+
+        if($request->hasFile('tm_image')){
+            $imagePath = $request->file('tm_image')->store('testimonial','public');
+        }
+
+        $update = Testimonial::find($request->tm_id);
+        $update->name = $request->tm_name;
+        $update->profession = $request->tm_profession;
+        $update->description = $request->tm_description;
+        if($request->hasFile('tm_image')){
+            $update->image = $imagePath;
+        }
+
+        $update->save();
+
+        return redirect()->back()->with('success','Testimonial Updated Successfully!');
+    }
+
+    public function deleteTestimonial($id){
+        $delete = Testimonial::find($id);
+        $delete->delete();
+
+        return redirect()->back()->with('success','Testimonial Deleted Succesfully !');
+    
+    }
+
 }
