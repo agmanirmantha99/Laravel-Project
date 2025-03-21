@@ -5,13 +5,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SliderController;
 use App\Models\Slider;
-
+use App\Models\Testimonial;
 
 
 Route::get('/', function () {
 
     $sliders = Slider::all();
-    return view('frontend.home',compact('sliders'));
+    $testimonials = Testimonial::all();
+    return view('frontend.home',compact('sliders','testimonials'));
 });
 
 
