@@ -9,10 +9,10 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
-                            <a class="btn btn-light btn-md-square me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-light btn-md-square me-3" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-light btn-md-square me-3" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-light btn-md-square me-0" href=""><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-light btn-md-square me-3" href="{{$main_settings['facebook_link']}}"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-light btn-md-square me-3" href="{{$main_settings['twitter_link']}}"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-light btn-md-square me-3" href="{{$main_settings['instagram_link']}}"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-light btn-md-square me-0" href="{{$main_settings['linkedin_link']}}"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
