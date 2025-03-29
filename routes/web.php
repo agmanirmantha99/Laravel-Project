@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SliderController;
 use App\Models\Slider;
 use App\Models\Testimonial;
+use App\Http\Controllers\admin\SettingsController;
 
 
 Route::get('/', function () {
@@ -38,6 +39,11 @@ Route::get('/admin/dashboard', function () {
         dd('View not found!');
     }
     return view('admin.dashboard');
+});
+
+Route::controller(SettingsController::class)->middleware(['auth','verified'])->group(function (){
+  Route::get('/settings','index')->name('settings');
+  Route::post('/settingsUpdate','update')->name('settings.update');
 });
 
 Route::controller(TestimonialController::class)->middleware(['auth','verified'])->group(function (){
