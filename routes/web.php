@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Http\Controllers\admin\SettingsController;
-
+use App\Http\Controllers\admin\PostController;
 
 Route::get('/', function () {
 
@@ -62,5 +62,12 @@ Route::controller(TestimonialController::class)->middleware(['auth','verified'])
     Route::get('/deleteTestimonial/{id}','deleteTestimonial')->name('Testimonial.delete');
 });
 
+
+Route::controller(PostController::class)->middleware(['auth','verified'])->group(function (){
+    Route::get('/postIndex','index')->name('posts');
+    Route::post('/savePost','storepost')->name('posts.store');
+    Route::post('/postsUpdate','updatepost')->name('posts.update');
+    Route::get('/deletePost/{id}','deletepost')->name('posts.delete');
+  });
 
 require __DIR__.'/auth.php';
