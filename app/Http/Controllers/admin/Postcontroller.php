@@ -6,7 +6,7 @@ use App\Models\Posts;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class Postcontroller extends Controller
+class PostController extends Controller
 {
     public function index(){
         $posts = Posts::all();
@@ -26,7 +26,7 @@ class Postcontroller extends Controller
             $imagepath = $request->file('post_image')->store('posts','public');
         }
     
-        posts::create([
+        Posts::create([
             'title' => $request->post_title,
             'slug' => $request->post_slug,
             'body' => $request->post_body,
