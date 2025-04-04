@@ -34,7 +34,7 @@
              <h5 class="modal-title" id="slideModalLabel">Add Post Details</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
          </div>
-            <form method="POST" action="/savepost" enctype="multipart/form-data">
+            <form method="POST" action="/savePost" enctype="multipart/form-data">
              @csrf
         <div class="modal-body">
             <!-- title -->
