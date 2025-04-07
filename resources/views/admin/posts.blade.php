@@ -116,13 +116,13 @@
           </div>
           <form method="POST" action="/postsUpdate" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="tm_id" value="{{$post->id}}">
+            <input type="hidden" name="post_id" value="{{$post->id}}">
           <div class="modal-body">
             
               <!-- title -->
               <div class="mb-3">
                   <label for="post_title" class="form-label">Title</label>
-                  <input type="text" class="form-control" id="post_title" name="post_title" value="{{ $post->id }}" placeholder="Enter Title">    
+                  <input type="text" class="form-control" id="post_title" name="post_title" value="{{ $post->title }}" placeholder="Enter Title">    
               </div>
   
               <!-- slug -->
