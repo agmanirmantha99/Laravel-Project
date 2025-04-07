@@ -8,6 +8,7 @@ use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Http\Controllers\admin\SettingsController;
 use App\Http\Controllers\admin\PostController;
+use App\Models\Posts;
 
 Route::get('/', function () {
 
@@ -22,7 +23,9 @@ Route::get('/about',function (){
 
 
 Route::get('/blog',function (){
-    return view('frontend.blog');
+    $posts = Posts::all();
+
+    return view('frontend.blog',compact('posts'));
 });
 
 
