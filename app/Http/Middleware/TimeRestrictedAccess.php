@@ -18,8 +18,8 @@ class TimeRestrictedAccess
     {
         $currentTime = Carbon::now()->format('H:i');
 
-        $startTime = '09:00';
-        $endTime = '17:00';
+        $startTime = '00:00';
+        $endTime = '20:00';
 
         if($currentTime >= $startTime && $currentTime <= $endTime){
             return $next($request);
