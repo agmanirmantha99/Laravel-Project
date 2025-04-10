@@ -21,6 +21,10 @@ Route::get('/about',function (){
     return view('frontend.about');
 });
 
+Route::get('/service',function (){
+    return view('frontend.service');
+})->middleware([TimeRestrictedAccess::class]);
+
 
 Route::get('/blog',function (){
     $posts = Posts::orderBy('created_at','desc')->paginate(3);
