@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -81,6 +82,13 @@ Route::controller(PostController::class)->middleware(['auth','verified'])->group
     Route::post('/savePost','storepost')->name('posts.store');
     Route::post('/postsUpdate','updatepost')->name('posts.update');
     Route::get('/deletePost/{id}','deletepost')->name('posts.delete');
-  });
+});
 
+
+Route::controller(PermissionController::class)->middleware(['auth','verified'])->group(function(){
+    Route::get('/perimssionIndex','index');
+    Route::post('/savePermission','storepermission')->name('permission.store');
+    Route::post('/permissionUpdate','updatepermission')->name('permission.update');
+    Route::post('/deletePermission/{id}','deletepermission')->name('permission.delete');
+});
 require __DIR__.'/auth.php';
