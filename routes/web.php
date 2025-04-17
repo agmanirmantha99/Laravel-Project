@@ -89,6 +89,6 @@ Route::controller(PermissionController::class)->middleware(['auth','verified'])-
     Route::get('/perimssionIndex','index');
     Route::post('/savePermission','storepermission')->name('permission.store');
     Route::post('/permissionUpdate','updatepermission')->name('permission.update');
-    Route::post('/deletePermission/{id}','deletepermission')->name('permission.delete');
+    Route::get('/deletePermission/{id}','deletepermission')->name('permission.delete');
 });
 require __DIR__.'/auth.php';
