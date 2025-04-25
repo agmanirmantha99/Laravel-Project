@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4">User</h1>
+    <h1 class="mt-4">Users</h1>
 </div>    
 
 <div>
@@ -21,6 +21,77 @@
         </ul>    
       </div>
     @endif 
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#slideModal">
+        Add New User
+      </button> 
+
+    <!-- Modal -->
+    <div class="modal fade" id="slideModal" tabindex="-1" role="dialog" aria-labelledby="slideModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="slideModalLabel">Add New User</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+         </div>
+            <form method="POST" action="/saveUser" enctype="multipart/form-data">
+             @csrf
+            <div class="modal-body">
+
+            <!-- title -->
+            <div class="mb-3">
+                <label for="user_name" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="user_name" name="role_name" placeholder="Name">    
+            </div>
+
+            <!-- email -->
+            <div class="mb-3">
+                <label for="user_email" class="form-label">User Email</label>
+                <input type="email" class="form-control" id="user_email" name="user_email" placeholder="Email">    
+            </div>
+
+             <!-- password -->
+             <div class="mb-3">
+                <label for="user_password" class="form-label">User Password</label>
+                <input type="text" class="form-control" id="user_password" name="user_password" placeholder="Password">    
+            </div>
+
+          </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+ </div>  
+<!-- End Modal --> 
+ <div class="card mb-4">
+    <table id="datatablesSample" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>User Email </th>
+                <th>User Password</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+           <tbody>
+               @foreach ($users as $user)
+                  <tr>
+                     <td>{{$user->name}}</td>
+                     <td>{{$user->email}}</td>
+                     <td>{{$user->password}}</td>
+                     <td>
+                         <a href ="/userUpdate/{{ $user->id }}" class="btn btn-primary">Edit</a>
+                         <a href ="/deleteUser/{{ $user->id }}" class="btn btn-danger">Delete</a>
+                     </td>  
+                  </tr>
+               @endforeach
+          </tbody>      
+    </table>
+    </div> 
+
 </div>
 
 @endsection
