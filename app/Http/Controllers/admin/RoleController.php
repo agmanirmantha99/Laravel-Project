@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -44,21 +45,22 @@ class RoleController extends Controller
     public function givePermissionToRole($id){
         $permissions = Permission::all();
         $role = Role::findOrFail($id);
-
-        // $rolePermision = $role->permisions() ->pluck('id') ->toArray();
-
-
-
-        return view('admin.UserManage.givePermissionToRole', compact('permissions', 'role',));
+    
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+        ->pluck('role_has_permissions.permission_id','role_has_permissions.role_id')->all();
+        
+        
+        return view('admin.UserManage.givePermissionToRole', compact('permissions', 'role','rolePermissions'));
     }
+
     public function giveRoleToPermission(Request $request,$role_id){
         $request->validate([
             'permissions' => 'required',
-
         ]);
+
         $role = Role::findOrFail($role_id);
         $role->syncPermissions($request->permissions);
 
-        return redirect()->back()->with('Success','Permission added successfully!');
+        return redirect()->back()->with('success','Permission added successfully!');
     }
 }
