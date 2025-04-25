@@ -9,7 +9,11 @@ use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Http\Controllers\admin\SettingsController;
 use App\Http\Controllers\admin\PostController;
+use App\Http\Controllers\admin\RoleController;
 use App\Models\Posts;
+use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\admin\UserController;
+
 
 Route::get('/', function () {
 
@@ -84,11 +88,29 @@ Route::controller(PostController::class)->middleware(['auth','verified'])->group
     Route::get('/deletePost/{id}','deletepost')->name('posts.delete');
 });
 
-
-Route::controller(PermissionController::class)->middleware(['auth','verified'])->group(function(){
-    Route::get('/perimssionIndex','index');
+Route::controller(PermissionController::class)->middleware(['auth','verified'])->group(function (){
+    Route::get('/permissionIndex','index');
     Route::post('/savePermission','storepermission')->name('permission.store');
     Route::post('/permissionUpdate','updatepermission')->name('permission.update');
     Route::get('/deletePermission/{id}','deletepermission')->name('permission.delete');
+ });
+
+Route::controller(RoleController::class)->middleware(['auth','verified'])->group(function (){
+    Route::get('/roleIndex','index');
+    Route::post('/saveRole','storerole')->name('role.store');
+    Route::post('/roleUpdate','updaterole')->name('role.update');
+    Route::get('/deleteRole/{id}','deleterole')->name('role.delete');
+
+    Route::get('/permissionToRole/{id}','givePermissionToRole')->name('role.givePermissionToRole');
+    Route::put('/givePermissionToRole/{id}','giveRoleToPermission')->name('role.giveRoleToPermission');
 });
+
+Route::controller(UserController::class)->middleware(['auth','verified'])->group(function (){
+    Route::get('/userIndex','index');
+    Route::post('/saveUser','storeuser')->name('user.store');
+    Route::post('/userUpdate','updateuser')->name('user.update');
+    Route::post('/deleteUser/{id}','deleteuser')->name('user.delete');
+});
+
+
 require __DIR__.'/auth.php';
