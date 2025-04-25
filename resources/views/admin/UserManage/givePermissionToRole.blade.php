@@ -24,7 +24,7 @@
 </div>
 <div class="container">
 <div class="card-body">
-    <form action =" {{ url('givePermissionToRole/' .$role->id) }}" method = "POST">
+    <form action="{{ url('givePermissionToRole/' . $role->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -37,6 +37,7 @@
                     type="checkbox" name="permissions[]" 
                     value="{{ $permission->name}}" 
                     id="defaultCheck1"
+                    {{in_array($permission->id,$rolePermissions) ? 'checked' :'' }}
                   
                     />
                     <label class="form-check-label" for="defaultCheck1">
