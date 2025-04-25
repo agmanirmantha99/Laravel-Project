@@ -17,8 +17,8 @@ class PermissionController extends Controller
     public function storepermission (Request $request){
         $request->validate([
             'permission_name' => 'required',
-
         ]);    
+        
         Permission::create(['name'=> $request->permission_name]);
         return redirect()->back()->with('success','Permission Added Successfully!');
     }
