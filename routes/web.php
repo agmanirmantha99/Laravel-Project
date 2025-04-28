@@ -14,7 +14,6 @@ use App\Models\Posts;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\admin\UserController;
 
-
 Route::get('/', function () {
 
     $sliders = Slider::all();
@@ -92,24 +91,24 @@ Route::controller(PermissionController::class)->middleware(['auth','verified'])-
     Route::get('/permissionIndex','index');
     Route::post('/savePermission','storepermission')->name('permission.store');
     Route::post('/permissionUpdate','updatepermission')->name('permission.update');
-    Route::get('/deletePermission/{id}','deletepermission')->name('permission.delete');
+    Route::get('/deletePermission/{id}','deletepermission')->middleware(['role:super admin'])->name('permission.delete');
  });
 
 Route::controller(RoleController::class)->middleware(['auth','verified'])->group(function (){
     Route::get('/roleIndex','index');
     Route::post('/saveRole','storerole')->name('role.store');
     Route::post('/roleUpdate','updaterole')->name('role.update');
-    Route::get('/deleteRole/{id}','deleterole')->name('role.delete');
+    Route::get('/deleteRole/{id}','deleterole')->middleware(['role:super admin'])->name('role.delete');
 
     Route::get('/permissionToRole/{id}','givePermissionToRole')->name('role.givePermissionToRole');
     Route::put('/givePermissionToRole/{id}','giveRoleToPermission')->name('role.giveRoleToPermission');
 });
 
-Route::controller(UserController::class)->middleware(['auth','verified'])->group(function (){
+Route::controller(UserController::class)->middleware(['auth','verified','role:super admin|admin'])->group(function (){
     Route::get('/userIndex','index');
     Route::post('/saveUser','storeuser')->name('user.store');
     Route::post('/userUpdate','updateuser')->name('user.update');
-    Route::post('/deleteUser/{id}','deleteuser')->name('user.delete');
+    Route::get('/deleteUser/{id}','deleteuser')->middleware(['role:super admin'])->name('user.delete');
 });
 
 
