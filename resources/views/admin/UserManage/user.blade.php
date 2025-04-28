@@ -41,7 +41,7 @@
             <!-- title -->
             <div class="mb-3">
                 <label for="user_name" class="form-label">User Name</label>
-                <input type="text" class="form-control" id="user_name" name="role_name" placeholder="Name">    
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name">    
             </div>
 
             <!-- email -->
@@ -54,6 +54,18 @@
              <div class="mb-3">
                 <label for="user_password" class="form-label">User Password</label>
                 <input type="text" class="form-control" id="user_password" name="user_password" placeholder="Password">    
+            </div>
+
+            <!-- roles -->
+            <div class="mb-3">
+                <label for="user_role" class="form-label">User Roles</label>
+                <select class="form-control" name="roles[]">
+                    <option value="">Select Role</option>
+                    @foreach ($roles as $role)
+                    <option value="{{ $role }}">{{$role}}</option>
+                    @endforeach
+                </select>
+                   
             </div>
 
           </div>
@@ -73,6 +85,7 @@
                 <th>User Name</th>
                 <th>User Email </th>
                 <th>User Password</th>
+                <th>User Roles</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -82,6 +95,11 @@
                      <td>{{$user->name}}</td>
                      <td>{{$user->email}}</td>
                      <td>{{$user->password}}</td>
+                     <td>
+                        @foreach($user->roles as $role)
+                            {{$role->name}}
+                        @endforeach
+                    </td>
                      <td>
                          <a href ="/userUpdate/{{ $user->id }}" class="btn btn-primary">Edit</a>
                          <a href ="/deleteUser/{{ $user->id }}" class="btn btn-danger">Delete</a>
