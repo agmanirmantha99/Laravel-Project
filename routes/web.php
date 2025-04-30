@@ -13,6 +13,8 @@ use App\Http\Controllers\admin\RoleController;
 use App\Models\Posts;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\ContactController;
+
 
 Route::get('/', function () {
 
@@ -36,16 +38,24 @@ Route::get('/blog',function (){
     return view('frontend.blog',compact('posts'));
 });
 
+Route::get('/contact',function () {
+    return View('frontend.contact');
+});
+
 Route::get('/blog/{slug}', function ($slug) {
     $post = Posts::where('slug',$slug)->first();
     return view('frontend.post-single',compact('post'));
 });
 
-
-
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::controller(ContactController::class)->group(function () {
+    Route::get('/admincontact','index')->middleware(['role:super admin'])->name('contact');
+    Route::post('/contactSave','store')->name('contact.store');
+    Route::get('/contact/{id}/delete','destroy')->middleware(['role:super admin'])->name('contact.delete');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
